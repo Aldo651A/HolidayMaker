@@ -96,13 +96,35 @@ while (true)
                     Console.WriteLine($"[ID: {customer.Id}] {customer.Name} {customer.LastName} {customer.Telephone}");
                 }
 
-
-
-
-
+                Console.WriteLine();
+                Console.Write("Skriv in ID-numret på kunden du vill aktivera: ");
+                if (int.TryParse(Console.ReadLine()!, out int chosenId))
+                {
+                    // Serach the list to find a customer with that exact id.
+                    var found = matchingCustomers.Find(c => c.id == chosenId);
+                    if (found != null) // If the customer was found in the list
+                    {
+                        // Set this customer as the currently active/selected customer
+                        selectedCustomer = found;
+                        Console.WriteLine($"\nKunden {selectedCustomer.Name} {selectedCustomer.LastName} är nu aktiv!");
+                    }
+                    else
+                    {
+                        Console.WriteLine("\nDet ID-numret matchade ingen i listan.");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("\nOgiltigt ID-format.");
+                }
 
             }
+            // Catch any unexpected database errors or system errors
             catch (Exception ex)
+            {
+                Console.WriteLine($"\nFel vid sökning: {ex.Message}");
+            }
+            break;
 
 
     }
