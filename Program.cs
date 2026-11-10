@@ -46,7 +46,24 @@ while (true)
     string input = Console.ReadLine()!;
     Console.WriteLine();
 
-    
+
+    switch (input)
+    {
+        case "1":
+            Console.WriteLine("--REGISTRERA NY KUND--");
+            Console.Write("Ange förnamn: ");
+            string firstName = Console.ReadLine()!;
+            Console.Write("Ange efternamn: ");
+            string lastName = Console.ReadLine()!;
+            Console.Write("Ange e-post: ");
+            string email = Console.ReadLine()!;
+            Console.Write("Ange telefonnummer: ");
+            string phone = Console.ReadLine()!;
+
+            
+    }
+
+
 
 
 }
