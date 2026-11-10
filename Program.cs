@@ -77,8 +77,34 @@ while (true)
             Console.WriteLine("--- SÖK BEFINTLIG KUND ---");
             Console.Write("Ange efternamn att söka efter: ");
             string searchLastName = Console.ReadLine()!;
-            
-              
+
+            try
+            {
+                // Call the datebase function to search for customers and get a list back
+                List<Customer> matchingCustomers = await repository.FindCustomersByLastNameAsync(searchLastName);
+                
+                // Check if the list is empty (o custumors found)
+                if (matchingCustomers.Count == 0)
+                {
+                    Console.WriteLine("\nTyvärr, hittade inga kunder med det efternamnet. ");
+                    break;
+                }
+                
+                Console.WriteLine("\nMatchande kunder funna i databasen");
+                foreach (var customer in matchingCustomers) // Loop through each customer found in the list
+                {
+                    Console.WriteLine($"[ID: {customer.Id}] {customer.Name} {customer.LastName} {customer.Telephone}");
+                }
+
+
+
+
+
+
+            }
+            catch (Exception ex)
+
+
     }
 
 
