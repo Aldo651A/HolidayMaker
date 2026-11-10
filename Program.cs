@@ -60,7 +60,25 @@ while (true)
             Console.Write("Ange telefonnummer: ");
             string phone = Console.ReadLine()!;
 
+
+            try
+            {
+                int newCustomerId = await repository.CreateCustomerAsync(firstName, lastName, email, phone);
+                selectedCustomer = new Customer(newCustomerId, firstName, lastName, email, phone);
+                Console.WriteLine($"\nKlart! Kunden registrerades med ID: {newCustomerId}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"\nFel vid registrering: {ex.Message}");
+            }
+            break;
+
+        case "2":
+            Console.WriteLine("--- SÖK BEFINTLIG KUND ---");
+            Console.Write("Ange efternamn att söka efter: ");
+            string searchLastName = Console.ReadLine()!;
             
+              
     }
 
 
