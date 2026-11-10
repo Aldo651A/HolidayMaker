@@ -101,7 +101,7 @@ while (true)
                 if (int.TryParse(Console.ReadLine()!, out int chosenId))
                 {
                     // Serach the list to find a customer with that exact id.
-                    var found = matchingCustomers.Find(c => c.id == chosenId);
+                    var found = matchingCustomers.Find(c => c.Id == chosenId);
                     if (found != null) // If the customer was found in the list
                     {
                         // Set this customer as the currently active/selected customer
@@ -125,9 +125,20 @@ while (true)
                 Console.WriteLine($"\nFel vid sökning: {ex.Message}");
             }
             break;
+        
+        case "0":
+            Console.WriteLine("Avslutar programmet. Hejdå!");
+            return;
 
-
+        default:
+            Console.WriteLine("Ogiltig menyval, försök igen");
+            break;
+        
     }
+    Console.WriteLine("\nTryck på Enter för att återgå till menyn...");
+    Console.ReadLine();
+    Console.Clear();
+    
 
 
 
