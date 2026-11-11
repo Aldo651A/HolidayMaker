@@ -17,3 +17,4 @@ C:\Users\aldit\M.V.U KURS\HolidayMaker\obj\Debug\net10.0\refint\HolidayMaker.dll
 C:\Users\aldit\M.V.U KURS\HolidayMaker\obj\Debug\net10.0\HolidayMaker.pdb
 C:\Users\aldit\M.V.U KURS\HolidayMaker\obj\Debug\net10.0\HolidayMaker.genruntimeconfig.cache
 C:\Users\aldit\M.V.U KURS\HolidayMaker\obj\Debug\net10.0\ref\HolidayMaker.dll
+C:\Users\aldit\M.V.U KURS\HolidayMaker\obj\Debug\net10.0\HolidayMaker.sourcelink.json

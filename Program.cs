@@ -3,7 +3,7 @@ using MySqlConnector;
 
 // ANSLUTNING TILL DATABASEN 
 // Här talar vi om var databasen finns 
-string connectionString = "Server=localhost;Database=holiday_maker;User ID=root;Password=kurslosenord;UseAffectedRows=fals;";
+string connectionString = "Server=localhost;Database=holiday_maker;User ID=root;Password=kurslosenord;UseAffectedRows=false;";
 
 await using var connection = new MySqlConnection(connectionString);
 await connection.OpenAsync();
@@ -138,9 +138,5 @@ while (true)
     Console.WriteLine("\nTryck på Enter för att återgå till menyn...");
     Console.ReadLine();
     Console.Clear();
-    
-
-
-
 
 }

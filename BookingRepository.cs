@@ -8,7 +8,7 @@ public class BookingRepository(MySqlConnection connection)
     {
         // Create the SQL command and tell the datebase where to insert the data
         await using var command = new MySqlCommand(
-           "INTSERT INTO customers (name, last_name, email, telephone) VALUES (@name, @last_name, @email, @telephone);", 
+           "INSERT INTO customers (name, last_name, email, telephone) VALUES (@name, @last_name, @email, @telephone);", 
            connection);
 
         // Safety step: Link the real customer data to the SQL command.
@@ -32,7 +32,8 @@ public class BookingRepository(MySqlConnection connection)
         await using var command = new MySqlCommand(
             "SELECT id, name, last_name, email, telephone FROM customers WHERE last_name LIKE @search;", 
             connection);
-
+            
+            
         // Safety step Add % signs to allow partial matching (e.g. "Smi" find "Smith")   
         command.Parameters.AddWithValue("@search", "%" + lastName + "%");
         await command.PrepareAsync();
