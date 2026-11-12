@@ -154,7 +154,7 @@ while (true)
             Console.Write("Krävs pool (j/n): ");
             bool poolRequired = Console.ReadLine()!.ToLower() == "j";
 
-            Console.Write("Krävs pool (j/n): ");
+            Console.Write("Krävs restaurang (j/n): ");
             bool restaurantRequired = Console.ReadLine()!.ToLower() == "j";
 
             Console.Write("Max avstånd till strande i meter (Tryck enter för att hoppa över): ");
@@ -207,3 +207,4 @@ while (true)
     Console.Clear();
 
 }
+
