@@ -218,6 +218,22 @@ while (true)
             }
 
             Console.WriteLine("----SKAPA NY BOKNING----");
+            
+            try
+            {
+                // Show all rooms and their ID numbers so the operator does have not to guess
+                var allRooms = await repository.GetAllRoomsAsync();
+                foreach (var r in allRooms)
+                {
+                    Console.WriteLine($"[Rum-ID: {r.RoomId}] {r.HotelName} ({r.City}) - {r.RoomName} | Max: {r.Capacity} pers | {r.Price} kr/natt");
+                }
+                Console.WriteLine();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"\nFel: {ex.Message}");
+            }
+            
             Console.Write("Ange Rum-ID att boka: ");
             if (!int.TryParse(Console.ReadLine(), out int roomId))
             {
