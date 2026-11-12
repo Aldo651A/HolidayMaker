@@ -124,6 +124,47 @@ public class BookingRepository(MySqlConnection connection)
         }
         return rooms;
     }
+
+        // 3. CREATE & READ: Create a booking and calculate total price directly in SQL
+    public async Task<(int BookingNumber, decimal TotalPrice)> CreateBookingAsync(
+        int customerId, int roomId, DateTime startDate, DateTime endDate, int numPersons)
+    {
+        // Step A: Save the booking in the database
+        await using var insertCmd = new MySqlCommand(
+            "INSERT INTO bookings (customer_id, room_id, start_date, end_date, num_persons) VALUES (@customer_id, @room_id, @start_date, @end_date, @num_persons);", 
+            connection);
+            
+        insertCmd.Parameters.AddWithValue("@customer_id", customerId);
+        insertCmd.Parameters.AddWithValue("@room_id", roomId);
+        insertCmd.Parameters.AddWithValue("@start_date", startDate);
+        insertCmd.Parameters.AddWithValue("@end_date", endDate);
+        insertCmd.Parameters.AddWithValue("@num_persons", numPersons);
+
+        await insertCmd.PrepareAsync();
+        await insertCmd.ExecuteNonQueryAsync();
+        int newBookingId = checked((int)insertCmd.LastInsertedId);
+
+        // Step B: Get the total price (number of nights * room price) directly via SQL
+        await using var selectCmd = new MySqlCommand(
+            """
+            SELECT (DATEDIFF(b.end_date, b.start_date) * r.price) AS total_price
+            FROM bookings b
+            JOIN rooms r ON b.room_id = r.id
+            WHERE b.id = @id;
+            """, connection);
+            
+        selectCmd.Parameters.AddWithValue("@id", newBookingId);
+
+        await selectCmd.PrepareAsync();
+        await using var reader = await selectCmd.ExecuteReaderAsync();
+        await reader.ReadAsync();
+        
+        return (newBookingId, reader.GetDecimal("total_price"));
+    }
+
+
+
+
 } 
 
 
