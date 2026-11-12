@@ -162,6 +162,47 @@ public class BookingRepository(MySqlConnection connection)
         return (newBookingId, reader.GetDecimal("total_price"));
     }
 
+        // Helper method: Fetch all rooms so the operator can see available Room IDs
+    public async Task<List<AvailableRoom>> GetAllRoomsAsync()
+    {
+        string sql = """
+            SELECT h.name AS hotel_name, h.city, r.id AS room_id, r.name AS room_name, r.capacity, r.price
+            FROM rooms r
+            JOIN hotels h ON r.hotel_id = h.id
+            ORDER BY h.name, r.id;
+            """;
+
+        await using var command = new MySqlCommand(sql, connection);
+        await command.PrepareAsync();
+        await using var reader = await command.ExecuteReaderAsync();
+        var rooms = new List<AvailableRoom>();
+
+        while (await reader.ReadAsync())
+        {
+            rooms.Add(new AvailableRoom(
+                reader.GetString("hotel_name"),
+                reader.GetString("city"),
+                reader.GetInt32("room_id"),
+                reader.GetString("room_name"),
+                reader.GetInt32("capacity"),
+                reader.GetDecimal("price")));
+        }
+        return rooms;
+    }
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
