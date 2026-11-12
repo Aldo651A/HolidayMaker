@@ -77,7 +77,7 @@ while (true)
 
         case "2":
             Console.WriteLine("--- SÖK BEFINTLIG KUND ---");
-            Console.Write("Ange efternamn att söka efter: ");
+            Console.Write("Ange efternamn att söka efter (eller tryck Enter för att visa alla): ");
             string searchLastName = Console.ReadLine()!;
 
             try
