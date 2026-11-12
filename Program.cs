@@ -277,8 +277,40 @@ while (true)
                 Console.WriteLine($"\nKunde inte skapa bokning: {ex.Message}");
             }
             break;
+
+        case "5":
+            if (selectedCustomer == null)
+            {
+                Console.WriteLine("Du måste välja en kund (val 1 eller 2) först!");
+                break;
+            }
+
+            Console.WriteLine($"---- BOKNINGAR FÖR {selectedCustomer.Name.ToUpper()} {selectedCustomer.LastName.ToUpper()} ----");
+
+            try
+            {
+                List<BookingDetail> bookings = await repository.GetCustomerBookingsAsync(selectedCustomer.Id);
+
+                if (bookings.Count == 0)
+                {
+                    Console.WriteLine("Kunden har inga bokningar ännu.");
+                    break;
+                }
+
+                foreach (var booking in bookings)
+                {
+                   Console.WriteLine($"[Bokningsnr: {booking.BookingNumber}] {booking.AccommodationName} | {booking.RoomName} | {booking.StartDate:yyyy-MM-dd} till {booking.EndDate:yyyy-MM-dd} | {booking.NumPersons} pers | Totalpris: {booking.TotalPrice} kr");
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"\nFel vid hämtning av bokningar: {ex.Message}");
+            }
+            break;
+
             
-                
+
 
         case "0":
             Console.WriteLine("Avslutar programmet. Hejdå!");
@@ -292,6 +324,25 @@ while (true)
     Console.WriteLine("\nTryck på Enter för att återgå till menyn...");
     Console.ReadLine();
     Console.Clear();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
 
