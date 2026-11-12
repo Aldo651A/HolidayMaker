@@ -40,6 +40,7 @@ while (true)
     Console.WriteLine();
     Console.WriteLine("1. Registreraen helt ny kund");
     Console.WriteLine("2. Sök och välj en befintlig kund");
+    Console.WriteLine("3. Sök lediga rum");
     Console.WriteLine("0. Avsluta programmet");
     Console.WriteLine("Välj ett alternativ: ");
 
@@ -125,6 +126,41 @@ while (true)
                 Console.WriteLine($"\nFel vid sökning: {ex.Message}");
             }
             break;
+
+        case "3":
+            Console.WriteLine("----SÖK LEDIGA RUM----");
+            Console.WriteLine("Ange ort ");
+            string city = Console.ReadLine()!;
+
+            Console.Write("Incheckningsdatum (YYYY-MM-DD): ");
+            if (!DateTime.TryParse(Console.ReadLine(), out DateTime startDate))
+            {
+                Console.WriteLine("Ogiltigt datumformat. ");
+            }
+
+            Console.Write("Utcheckningsdatum (YYYY-MM-DD): ");
+            if (!DateTime.TryParse(Console.ReadLine(), out DateTime endDate))
+            {
+                Console.WriteLine("Ogiltigt datumformat. ");
+            }
+
+            Console.Write("Antal personer: ");
+            if (!int.TryParse(Console.ReadLine(), out int numPersons))
+            {
+                Console.WriteLine("Ogiltig antal personer. ");
+                break;
+            }
+            
+
+
+
+
+
+
+
+
+
+
         
         case "0":
             Console.WriteLine("Avslutar programmet. Hejdå!");
