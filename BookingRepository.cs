@@ -189,7 +189,48 @@ public class BookingRepository(MySqlConnection connection)
         }
         return rooms;
     }
-    
+
+        // 4. READ: Show all bookings for a specific customer
+    public async Task<List<BookingDetail>> GetCustomerBookingsAsync(int customerId)
+    {
+        string sql = """
+            SELECT 
+                b.id AS booking_number,
+                h.name AS hotel_name,
+                r.name AS room_name,
+                b.start_date,
+                b.end_date,
+                b.num_persons,
+                (DATEDIFF(b.end_date, b.start_date) * r.price) AS total_price
+            FROM bookings b
+            JOIN rooms r ON b.room_id = r.id
+            JOIN hotels h ON r.hotel_id = h.id
+            WHERE b.customer_id = @customer_id
+            ORDER BY b.start_date ASC;
+            """;
+
+        await using var command = new MySqlCommand(sql, connection);
+        command.Parameters.AddWithValue("@customer_id", customerId);
+
+        await command.PrepareAsync();
+        await using var reader = await command.ExecuteReaderAsync();
+        var bookings = new List<BookingDetail>();
+
+        while (await reader.ReadAsync())
+        {
+            bookings.Add(new BookingDetail(
+                reader.GetInt32("booking_number"),
+                reader.GetString("hotel_name"),
+                reader.GetString("room_name"),
+                reader.GetDateTime("start_date"),
+                reader.GetDateTime("end_date"),
+                reader.GetInt32("num_persons"),
+                reader.GetDecimal("total_price")));
+        }
+        return bookings;
+    }
+
+
 
 
 
