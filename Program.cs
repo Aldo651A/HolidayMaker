@@ -310,7 +310,32 @@ while (true)
             }
             break;
 
-            
+        case "6":
+        Console.WriteLine("----AVBOKA----");
+        Console.Write("Ange bokningsnummer för att avboka: ");
+        if (!int.TryParse(Console.ReadLine(), out int deleteId))
+            {
+                Console.WriteLine("Ogiltig bokningsnummer");
+                break;
+            }
+
+            try
+            {
+                int deletedRows = await repository.DeleteBookingAsync(deleteId);
+                if (deletedRows > 0)
+                {
+                    Console.WriteLine("\nBokningen är avbokad och rummet är nu ledigt igen!");
+                }
+                else
+                {
+                    Console.WriteLine("\nHittade ingen bokning med det nummer");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"\nFel vid avbokning: {ex.Message}");
+            }
+            break;
 
 
         case "0":
