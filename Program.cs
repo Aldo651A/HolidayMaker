@@ -213,6 +213,7 @@ while (true)
             if (selectedCustomer == null)
             {
                 Console.WriteLine("Du måste välja en kund (val 1 eller 2) innan du kan boka!");
+                break;
             }
 
             Console.WriteLine("----SKAPA NY BOKNING----");
@@ -244,13 +245,22 @@ while (true)
                 break;
             }
             
-            
+            try
+            {
+                var receipt = await repository.CreateBookingAsync(selectedCustomer.Id, roomId, bookStart, bookEnd, guests);
+
+                Console.WriteLine("\n----BOKNINGSBEKRÄFTELSE----");
+                Console.WriteLine($"Bokningsnummer: {receipt.BookingNumber}");
+                Console.WriteLine($"Totalpris:      {receipt.TotalPrice}");
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"\nKunde inte skapa bokning: {ex.Message}");
+            }
+            break;
             
                 
-            
-
-
-
 
         case "0":
             Console.WriteLine("Avslutar programmet. Hejdå!");
