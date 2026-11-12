@@ -151,12 +151,14 @@ while (true)
             if (!DateTime.TryParse(Console.ReadLine(), out DateTime startDate))
             {
                 Console.WriteLine("Ogiltigt datumformat. ");
+                break;
             }
 
             Console.Write("Utcheckningsdatum (YYYY-MM-DD): ");
             if (!DateTime.TryParse(Console.ReadLine(), out DateTime endDate))
             {
                 Console.WriteLine("Ogiltigt datumformat. ");
+                break;
             }
 
             Console.Write("Antal personer: ");
@@ -167,10 +169,10 @@ while (true)
             }
 
             Console.Write("Krävs pool (j/n): ");
-            bool poolRequired = Console.ReadLine()!.ToLower() == "j";
+            bool poolRequired = Console.ReadLine()?.ToLower() == "j";
 
             Console.Write("Krävs restaurang (j/n): ");
-            bool restaurantRequired = Console.ReadLine()!.ToLower() == "j";
+            bool restaurantRequired = Console.ReadLine()?.ToLower() == "j";
 
             Console.Write("Max avstånd till strande i meter (Tryck enter för att hoppa över): ");
             string beachInput = Console.ReadLine()!;
