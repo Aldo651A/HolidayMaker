@@ -150,9 +150,25 @@ while (true)
                 Console.WriteLine("Ogiltig antal personer. ");
                 break;
             }
+
+            Console.Write("Krävs pool (j/n): ");
+            bool poolRequired = Console.ReadLine()!.ToLower() == "j";
+
+            Console.Write("Krävs pool (j/n): ");
+            bool reataurantRequired = Console.ReadLine()!.ToLower() == "j";
+
+            Console.Write("Max avstånd till strande i meter (Tryck enter för att hoppa över): ");
+            string beachInput = Console.ReadLine()!;
+            int? maxBeach = int.TryParse(beachInput, out int b) ? b : null;
+
+            Console.Write("Max avstånd till centrum i meter (Tryck enter för att hoppa över): ");
+            string centerInput = Console.ReadLine()!;
+            int? maxCenter = int.TryParse(centerInput, out int cDist) ? cDist : null;
+
+            Console.Write("Sortera efter pris (p) eller omdöme (o): ");
+            string sortBy = Console.ReadLine()!.ToLower() == "o" ? "rating" : "price";
+
             
-
-
 
 
 
