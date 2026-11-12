@@ -209,6 +209,48 @@ while (true)
             }
             break;
 
+        case "4":
+            if (selectedCustomer == null)
+            {
+                Console.WriteLine("Du måste välja en kund (val 1 eller 2) innan du kan boka!");
+            }
+
+            Console.WriteLine("----SKAPA NY BOKNING----");
+            Console.Write("Ange Rum-ID att boka: ");
+            if (!int.TryParse(Console.ReadLine(), out int roomId))
+            {
+                Console.WriteLine("Ogiltig Rum-ID. ");
+                break;
+            }
+            
+            Console.Write("Incheckningsdatum (YYYY-MM-DD): ");
+            if (!DateTime.TryParse(Console.ReadLine(), out DateTime bookStart))
+            {
+                Console.WriteLine("Ogiltig datumformat.");
+                break;
+            }
+
+            Console.Write("Utchekningsdatum (YYYY-MM-DD): ");
+            if (!DateTime.TryParse(Console.ReadLine(), out DateTime bookEnd))
+            {
+                Console.WriteLine("Ogiltig datumformat.");
+                break;
+            }
+
+            Console.Write("Antal personer: ");
+            if (!int.TryParse(Console.ReadLine(), out int guests))
+            {
+                Console.WriteLine("Ogiltig antal personer. ");
+                break;
+            }
+            
+            
+            
+                
+            
+
+
+
 
         case "0":
             Console.WriteLine("Avslutar programmet. Hejdå!");
