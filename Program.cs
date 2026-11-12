@@ -129,8 +129,23 @@ while (true)
 
         case "3":
             Console.WriteLine("----SÖK LEDIGA RUM----");
-            Console.WriteLine("Ange ort (t.ex. Visby, Båstad eller Marstrand): ");
-            string city = Console.ReadLine()!;
+            Console.WriteLine("Välj ort: ");
+            Console.WriteLine("1. Visby");
+            Console.WriteLine("2. Båstad");
+            Console.WriteLine("3. Marstrand");
+            Console.Write("Val (1-3): ");
+
+            string cityChoice = Console.ReadLine()!;
+            string city = "";
+            
+            if (cityChoice == "1") city = "Visby";
+            else if (cityChoice == "2") city = "Båstad";
+            else if (cityChoice == "3") city = "Marstrand";
+            else
+            {
+                Console.WriteLine("Ogiltig val av ort. ");
+                break;
+            }
 
             Console.Write("Incheckningsdatum (YYYY-MM-DD): ");
             if (!DateTime.TryParse(Console.ReadLine(), out DateTime startDate))
