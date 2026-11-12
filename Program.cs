@@ -43,6 +43,7 @@ while (true)
     Console.WriteLine("3. Sök lediga rum");
     Console.WriteLine("4. Skapa bokning");
     Console.WriteLine("5. Visa kundens bokningar");
+    Console.WriteLine("6. Avboka");
     Console.WriteLine("0. Avsluta programmet");
     Console.WriteLine("Välj ett alternativ: ");
 
