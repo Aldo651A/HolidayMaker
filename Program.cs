@@ -155,7 +155,7 @@ while (true)
             bool poolRequired = Console.ReadLine()!.ToLower() == "j";
 
             Console.Write("Krävs pool (j/n): ");
-            bool reataurantRequired = Console.ReadLine()!.ToLower() == "j";
+            bool restaurantRequired = Console.ReadLine()!.ToLower() == "j";
 
             Console.Write("Max avstånd till strande i meter (Tryck enter för att hoppa över): ");
             string beachInput = Console.ReadLine()!;
@@ -168,16 +168,31 @@ while (true)
             Console.Write("Sortera efter pris (p) eller omdöme (o): ");
             string sortBy = Console.ReadLine()!.ToLower() == "o" ? "rating" : "price";
 
-            
+            try
+            {
+                List<AvailableRoom> rooms = await repository.FindAvailableRoomsAsync(
+                    city, startDate, endDate, numPersons, poolRequired, restaurantRequired, maxBeach, maxCenter, sortBy);
+
+                if (rooms.Count == 0)
+                {
+                    Console.WriteLine("\nTyvärr, inga lediga rum matchade sökningen. ");
+                    break;
+                }
+
+                Console.WriteLine("\nLediga rum: ");
+                foreach (var room in rooms)
+                {
+                    Console.WriteLine($"[Rum-ID: {room.RoomId}] {room.HotelName} ({room.City}) | {room.RoomName} | Kapacitet: {room.Capacity} | Pris: {room.Price} kr/natt");
+                }   
+                
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"\nFel vid sökning: {ex.Message}" );
+            }
+            break;
 
 
-
-
-
-
-
-
-        
         case "0":
             Console.WriteLine("Avslutar programmet. Hejdå!");
             return;
