@@ -309,18 +309,39 @@ while (true)
                 Console.WriteLine($"\nFel vid hämtning av bokningar: {ex.Message}");
             }
             break;
-
+        
         case "6":
-        Console.WriteLine("----AVBOKA----");
-        Console.Write("Ange bokningsnummer för att avboka: ");
-        if (!int.TryParse(Console.ReadLine(), out int deleteId))
+            if (selectedCustomer == null)
             {
-                Console.WriteLine("Ogiltig bokningsnummer");
+                Console.WriteLine("Du måste välja en kund (val 1 eller 2) först!");
                 break;
             }
 
+            Console.WriteLine("---- AVBOKA ----");
+
             try
             {
+                // Show the customer's bookings so the operator can see the booking numbers
+                var bookings = await repository.GetCustomerBookingsAsync(selectedCustomer.Id);
+                if (bookings.Count == 0)
+                {
+                    Console.WriteLine("Kunden har inga aktiva bokningar att avboka.");
+                    break;
+                }
+
+                foreach (var booking in bookings)
+                {
+                    Console.WriteLine($"[Bokningsnr: {booking.BookingNumber}] {booking.AccommodationName} | {booking.RoomName} | {booking.StartDate:yyyy-MM-dd} till {booking.EndDate:yyyy-MM-dd}");
+                }
+                Console.WriteLine();
+
+                Console.Write("Ange bokningsnummer att avboka: ");
+                if (!int.TryParse(Console.ReadLine(), out int deleteId))
+                {
+                    Console.WriteLine("Ogiltigt bokningsnummer.");
+                    break;
+                }
+
                 int deletedRows = await repository.DeleteBookingAsync(deleteId);
                 if (deletedRows > 0)
                 {
@@ -328,7 +349,7 @@ while (true)
                 }
                 else
                 {
-                    Console.WriteLine("\nHittade ingen bokning med det nummer");
+                    Console.WriteLine("\nHittade ingen bokning med det numret.");
                 }
             }
             catch (Exception ex)
@@ -337,6 +358,7 @@ while (true)
             }
             break;
 
+    
 
         case "0":
             Console.WriteLine("Avslutar programmet. Hejdå!");
