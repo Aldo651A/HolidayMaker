@@ -229,6 +229,20 @@ public class BookingRepository(MySqlConnection connection)
         }
         return bookings;
     }
+    
+        // 6. DELETE: Cancel a booking so the room becomes available again
+    public async Task<int> DeleteBookingAsync(int bookingId)
+    {
+        await using var command = new MySqlCommand(
+            "DELETE FROM bookings WHERE id = @id LIMIT 1;", connection);
+        command.Parameters.AddWithValue("@id", bookingId);
+
+        await command.PrepareAsync();
+        return await command.ExecuteNonQueryAsync();
+    }
+
+
+
 
 
 

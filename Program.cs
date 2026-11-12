@@ -325,24 +325,5 @@ while (true)
     Console.ReadLine();
     Console.Clear();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
