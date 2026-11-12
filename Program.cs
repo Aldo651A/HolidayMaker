@@ -41,6 +41,7 @@ while (true)
     Console.WriteLine("1. Registreraen helt ny kund");
     Console.WriteLine("2. Sök och välj en befintlig kund");
     Console.WriteLine("3. Sök lediga rum");
+    Console.WriteLine("4. Skapa bokning");
     Console.WriteLine("0. Avsluta programmet");
     Console.WriteLine("Välj ett alternativ: ");
 
