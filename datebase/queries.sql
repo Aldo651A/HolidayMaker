@@ -1,3 +1,10 @@
+Use holiday_maker;
+
+-- Denna fil inehåller alla 8 frågor som man skulle testa. "Testa din lösning"
+-- Här liger också dem sex kraven en "Operatör ska kunna"
+
+-- Testa din lösning --
+
 -- Ett ledigt rum visas och ett upptaget rum filtreras bort.
 SELECT * FROM rooms
          WHERE NOT EXISTS(SELECT 1 FROM bookings
@@ -50,7 +57,7 @@ DELETE FROM bookings WHERE id = 17;
 
 
 
-
+-- Operatör ska kunna --
 
 
 -- Lägger i en ny kund i databasen
