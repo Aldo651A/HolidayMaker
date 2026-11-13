@@ -359,7 +359,61 @@ while (true)
             }
             break;
 
-    
+        case "7":
+            if (selectedCustomer == null)
+            {
+                Console.WriteLine("Du måste välja en kund (val 1 eller 2) först!");
+                break;
+            }
+
+            Console.WriteLine("---- ÄNDRA ANTAL PERSONER ----");
+
+            try
+            {
+                // Show the customer's bookings so the operator can see the booking numbers
+                var bookings = await repository.GetCustomerBookingsAsync(selectedCustomer.Id);
+                if (bookings.Count == 0)
+                {
+                    Console.WriteLine("Kunden har inga aktiva bokningar att ändra.");
+                    break;
+                }
+
+                foreach (var booking in bookings)
+                {
+                    Console.WriteLine($"[Bokningsnr: {booking.BookingNumber}] {booking.AccommodationName} | {booking.RoomName} | {booking.StartDate:yyyy-MM-dd} till {booking.EndDate:yyyy-MM-dd} | Nuvarande: {booking.NumPersons} pers");
+                }
+                Console.WriteLine();
+
+                Console.Write("Ange bokningsnummer att ändra: ");
+                if (!int.TryParse(Console.ReadLine(), out int updateId))
+                {
+                    Console.WriteLine("Ogiltigt bokningsnummer.");
+                    break;
+                }
+
+                Console.Write("Ange nytt antal personer: ");
+                if (!int.TryParse(Console.ReadLine(), out int newPersons))
+                {
+                    Console.WriteLine("Ogiltigt antal personer.");
+                    break;
+                }
+
+                int updatedRows = await repository.UpdateBookingPersonsAsync(updateId, newPersons);
+                if (updatedRows > 0)
+                {
+                    Console.WriteLine("\nAntal personer har uppdaterats!");
+                }
+                else
+                {
+                    Console.WriteLine("\nHittade ingen bokning med det numret.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"\nKunde inte ändra bokningen: {ex.Message}");
+            }
+            break;
+
 
         case "0":
             Console.WriteLine("Avslutar programmet. Hejdå!");
