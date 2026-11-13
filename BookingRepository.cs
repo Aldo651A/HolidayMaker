@@ -240,6 +240,19 @@ public class BookingRepository(MySqlConnection connection)
         await command.PrepareAsync();
         return await command.ExecuteNonQueryAsync();
     }
+    
+
+        // 5. UPDATE: Change the number of persons in a booking (database trigger checks room capacity)
+    public async Task<int> UpdateBookingPersonsAsync(int bookingId, int newNumPersons)
+    {
+        await using var command = new MySqlCommand(
+            "UPDATE bookings SET num_persons = @num_persons WHERE id = @id;", connection);
+        command.Parameters.AddWithValue("@num_persons", newNumPersons);
+        command.Parameters.AddWithValue("@id", bookingId);
+
+        await command.PrepareAsync();
+        return await command.ExecuteNonQueryAsync();
+    }
 
 
 

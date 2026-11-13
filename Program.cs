@@ -44,6 +44,7 @@ while (true)
     Console.WriteLine("4. Skapa bokning");
     Console.WriteLine("5. Visa kundens bokningar");
     Console.WriteLine("6. Avboka");
+    Console.WriteLine("7. Ändra antalet personer i en bokning");
     Console.WriteLine("0. Avsluta programmet");
     Console.WriteLine("Välj ett alternativ: ");
 
