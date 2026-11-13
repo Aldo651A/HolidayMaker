@@ -66,6 +66,29 @@ while (true)
             string phone = Console.ReadLine()!;
 
 
+            // 1. Stop empty fields or only spaces (Enter)
+            if (string.IsNullOrWhiteSpace(firstName) || string.IsNullOrWhiteSpace(lastName) ||
+            string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(phone))
+            {
+                Console.WriteLine("\nAlla fält måste fyllas i! Kunden registrerades inte.");
+                break;
+            }
+
+            // 2. Stop numbers in first and last names
+            if (firstName.Any(char.IsDigit) || lastName.Any(char.IsDigit))
+            {
+                Console.WriteLine("\nFörnamn och efternamn får inte innehålla siffror!");
+                break;
+            }
+
+            // 3. Stop invalid email address
+            if (!email.Contains("@"))
+            {
+                Console.WriteLine("\nOgiltig e-postadress (måste innehålla @)!");
+                break;
+            }
+
+
             try
             {
                 int newCustomerId = await repository.CreateCustomerAsync(firstName, lastName, email, phone);
