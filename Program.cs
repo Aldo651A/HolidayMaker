@@ -188,6 +188,12 @@ while (true)
                 break;
             }
 
+            if (startDate.Date < DateTime.Today || endDate.Date <= startDate.Date)
+            {
+                Console.WriteLine("Ogiltigt datum: Incheckning kan inte vara i det förflutna och utcheckning måste vara efter incheckning.");
+                break;
+            }
+
             Console.Write("Antal personer: ");
             if (!int.TryParse(Console.ReadLine(), out int numPersons))
             {
@@ -280,6 +286,14 @@ while (true)
                 Console.WriteLine("Ogiltig datumformat.");
                 break;
             }
+            
+
+            if (bookStart.Date < DateTime.Today || bookEnd.Date <= bookStart.Date)
+            {
+                Console.WriteLine("Ogiltigt datum: Incheckning kan inte vara i det förflutna och utcheckning måste vara efter incheckning.");
+                break;
+            }
+
 
             Console.Write("Antal personer: ");
             if (!int.TryParse(Console.ReadLine(), out int guests))
