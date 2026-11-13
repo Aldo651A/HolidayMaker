@@ -1,4 +1,4 @@
-### Holday Marker -Bokningssystem
+# Holday Marker -Bokningssystem
 
 ## Kom igång
 
